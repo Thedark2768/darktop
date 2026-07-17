@@ -1,21 +1,23 @@
-// Mostrar Diamantes al cargar la página
-document.getElementById("diamonds").classList.add("show");
+// Categories
+const buttons = document.querySelectorAll(".category-button");
+const categories = document.querySelectorAll(".category");
 
-function showCategory(id, boton){
+// Change category
+buttons.forEach(button => {
 
-    // Oculta todas las categorías
-    document.querySelectorAll(".category").forEach(categoria=>{
-        categoria.classList.remove("show");
+    button.addEventListener("click", () => {
+
+        // Remove active states
+        buttons.forEach(btn => btn.classList.remove("active"));
+        categories.forEach(category => category.classList.remove("visible"));
+
+        // Activate selected button
+        button.classList.add("active");
+
+        // Show selected category
+        const id = button.dataset.category;
+        document.getElementById(id).classList.add("visible");
+
     });
 
-    // Muestra la categoría elegida
-    document.getElementById(id).classList.add("show");
-
-    // Quita el estilo activo de todos los botones
-    document.querySelectorAll(".categorias button").forEach(btn=>{
-        btn.classList.remove("activo");
-    });
-
-    // Activa el botón seleccionado
-    boton.classList.add("activo");
-}
+});
