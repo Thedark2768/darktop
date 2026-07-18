@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -98,39 +98,39 @@
                     <article class="product-card">
                         <h3>110 Diamantes</h3>
                         <p class="price">Q10</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="110 Diamonds" data-price="10">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <span class="badge">Mas vendido</span>
                         <h3>341 Diamantes</h3>
                         <p class="price">Q30</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="341 Diamonds" data-price="30">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <h3>572 Diamantes</h3>
                         <p class="price">Q48</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="572 Diamonds" data-price="48">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <span class="badge">Mas vendido</span>
                         <h3>1166 Diamantes</h3>
                         <p class="price">Q95</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="1166 Diamonds" data-price="95">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <h3>2398 Diamantes</h3>
                         <p class="price">Q190</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="2398 Diamonds" data-price="190">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <h3>6160 Diamantes</h3>
                         <p class="price">Q480</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="6160 Diamonds" data-price="480">Comprar</button>
                     </article>
 
                 </div>
@@ -145,21 +145,21 @@
 
                     <article class="product-card">
                         <h3>Tarjeta Semanal</h3>
-                        <p class="price">Q35</p>
-                        <button>Comprar</button>
+                        <p class="price">Q30</p>
+                        <button class="buy-button" data-product="Weekly Membership" data-price="30">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <h3>Tarjeta Mensual</h3>
                         <p class="price">Q110</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="Monthly Membership" data-price="110">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <span class="badge">Mas vendido</span>
                         <h3>Pase Booyah</h3>
                         <p class="price">Q30</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="Booyah Pass" data-price="30">Comprar</button>
                     </article>
 
                 </div>
@@ -175,13 +175,13 @@
                     <article class="product-card">
                         <h3>Rey Sinfonia</h3>
                         <p class="price">Q55</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="King Sinfonia" data-price="55">Comprar</button>
                     </article>
 
                     <article class="product-card">
                         <h3>Reina Melodia</h3>
                         <p class="price">Q60</p>
-                        <button>Comprar</button>
+                        <button class="buy-button" data-product="Queen Melody" data-price="60">Comprar</button>
                     </article>
 
                 </div>
@@ -195,6 +195,40 @@
     <footer class="footer">
         <p>© 2026 DarkTop. All rights reserved.</p>
     </footer>
+
+    <div id="purchase-modal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-button">&times;</button>
+
+            <h2>Completa tu compra</h2>
+
+            <p id="selected-product"></p>
+
+            <label for="id">ID</label>
+            <input
+                type="text"
+                id="id"
+                inputmode="numeric"
+                maxlength="11"
+                placeholder="Introuce tu ID">
+            <small id="id-error" class="input-error"></small>
+
+            <label for="payment-method">Metodo de pago</label>
+
+            <select id="payment-method">
+                <option>Transferencia</option>
+                <option>Dinero en mano</option>
+            </select>
+
+            <button id="continue-button" class="primary-button">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
 
     <script src="scripts/main.js"></script>
 
