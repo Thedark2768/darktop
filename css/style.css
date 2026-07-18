@@ -16,6 +16,24 @@
 
     --radius:20px;
     --transition:.3s;
+
+    /* Typography Desktop */
+    --fs-logo:30px;
+
+    --fs-h1:56px;
+    --fs-h2:42px;
+    --fs-h3:22px;
+
+    --fs-body:16px;
+    --fs-hero:20px;
+
+    --fs-price:30px;
+
+    --fs-button:16px;
+
+    --fs-badge:12px;
+
+    --fs-footer:14px;
 }
 
 
@@ -72,7 +90,7 @@ button{
 .logo{
     color:var(--primary);
 
-    font-size:30px;
+    font-size: var(--fs-logo);
     font-weight:bold;
 }
 
@@ -99,14 +117,18 @@ button{
     padding:90px 20px;
 }
 
+.hero h1{
+    font-size: var(--fs-h1);
+}
+
 .hero h2{
-    font-size:55px;
+    font-size:var(--fs-h1);
     margin-bottom:20px;
 }
 
 .hero p{
     color:#CCCCCC;
-    font-size:20px;
+    font-size: var(--fs-hero);
 
     margin-bottom:35px;
 }
@@ -129,6 +151,12 @@ button{
     opacity:.9;
 }
 
+.primary-button,
+.product-card button,
+.category-button{
+    font-size: var(--fs-button);
+}
+
 
 /* ==========================
    Features
@@ -142,7 +170,7 @@ button{
 
     flex-wrap:wrap;
 
-    padding:60px;
+    padding:30px;
 }
 
 .feature-card{
@@ -156,6 +184,8 @@ button{
     padding:30px;
 
     width:280px;
+
+    font-size: var(--fs-h3);
 
     text-align:center;
 
@@ -185,7 +215,6 @@ button{
 .section-header{
 
     text-align:center;
-
     margin-bottom:60px;
 }
 
@@ -193,7 +222,7 @@ button{
 
     color:var(--primary);
 
-    font-size:42px;
+    font-size: var(--fs-h2);
 
     margin-bottom:10px;
 }
@@ -297,16 +326,20 @@ button{
 
 .product-card h3{
 
-    font-size:22px;
+    font-size: var(--fs-h3);
 
     margin-bottom:15px;
+}
+
+.feature-card p{
+    font-size: var(--fs-body);
 }
 
 .price{
 
     color:var(--primary);
 
-    font-size:30px;
+    font-size: var(--fs-price);
 
     font-weight:bold;
 
@@ -325,7 +358,7 @@ button{
 
     border-radius:12px;
 
-    padding:14px;
+    padding: 15px;
 
     transition:var(--transition);
 }
@@ -344,8 +377,8 @@ button{
 
     position:absolute;
 
-    top:15px;
-    right:15px;
+    top:5px;
+    right:5px;
 
     background:var(--primary);
 
@@ -355,9 +388,122 @@ button{
 
     border-radius:20px;
 
-    font-size:12px;
+    font-size: var(--fs-badge);
 
     font-weight:600;
+}
+
+/* ==========================
+   Modal
+========================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display: none;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.7);
+
+    backdrop-filter:blur(4px);
+
+    z-index:1000;
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modal-content{
+
+    width:90%;
+    max-width:420px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:30px;
+
+    position:relative;
+
+}
+
+.modal-content h2{
+
+    margin-bottom:20px;
+
+}
+
+.modal-content p{
+
+    margin-bottom:20px;
+
+}
+
+.modal-content label{
+
+    display:block;
+
+    margin-bottom:8px;
+    margin-top:18px;
+
+}
+
+.modal-content input,
+.modal-content select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#222;
+
+    color:white;
+
+}
+
+.modal-content button{
+    margin-top: 18px;
+}
+
+.close-button{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.input-error{
+    display: block;
+    margin-top: 8px;
+    color: #ff6b6b;
+    font-size: var(--fs-badge);
+    min-height: 16px;
 }
 
 
@@ -381,44 +527,73 @@ button{
 
 @media (max-width:768px){
 
+    :root{
+
+        --fs-logo:24px;
+
+        --fs-h1:34px;
+        --fs-h2:30px;
+        --fs-h3:18px;
+
+        --fs-body:14px;
+        --fs-hero:16px;
+
+        --fs-price:24px;
+
+        --fs-button:14px;
+
+        --fs-badge:10px;
+
+        --fs-footer:13px;
+
+    }
+
+    .product-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .product-card{
+        padding: 15px;
+    }
+
+    .product-card button{
+        padding: 5px;
+    }
+
     .header{
-
         flex-direction:column;
-
         gap:20px;
     }
 
     .navbar{
-
         gap:20px;
-
         flex-wrap:wrap;
-
         justify-content:center;
     }
 
-    .hero h2{
-
-        font-size:42px;
+    .category-nav{
+        gap: 0px;
     }
 
-    .hero p{
-
-        font-size:18px;
+    .category-button{
+        border-radius: 0%;
+        padding: 10px;
     }
 
     .features{
-        padding: 90px;
-        flex-wrap: nowrap;
+        padding:90px 15px;
+        gap:12px;
+        flex-wrap:nowrap;
     }
 
     .feature-card{
-        width: 160px;
-        padding: 15px;
+        width:160px;
+        padding:10px;
+        font-size: 10px;
     }
 
-    .feature-card>p{
-        display: none;
+    .feature-card p{
+        display:none;
     }
 
 }
