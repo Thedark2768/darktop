@@ -6,6 +6,9 @@ const categories = document.querySelectorAll(".category");
 let currentProduct = "";
 let currentPrice = "";
 
+//number
+const whatsapp_number = "50237386967"
+
 // Change category
 buttons.forEach(button => {
 
@@ -81,18 +84,43 @@ continueButton.addEventListener("click", () => {
     }
     const payment = document.getElementById("payment-method").value;
 
-    const message = `*Nueva Orden - DarkTop*
-    Producto: ${currentProduct}
-    Precio: Q${currentPrice}
-    
-    ID: ${id}
-    
-    Metodo de Pago: ${payment}`;
+    const message = `
+🛒 *Nueva Orden - DarkTop*
 
-    const phone = "50237386967";
+🎮 Producto: ${currentProduct}
+💰 Precio: ${currentPrice}
+
+🆔 ID: ${id}
+
+💳 Metodo de Pago: ${payment}
+`;
 
     window.open(
-        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+        `https://wa.me/${whatsapp_number}?text=${encodeURIComponent(message)}`,
         "_blank"
     );
 });
+
+const guideButton = document.getElementById("guide-button");
+const guideModal = document.getElementById("guide-modal");
+
+const closeGuide = document.querySelector(".close-guide");
+const closeGuideButton = document.querySelector(".close-guide-button");
+
+guideButton.addEventListener("click", () => {
+    guideModal.classList.add("show");
+});
+
+closeGuide.addEventListener("click", () => {
+    guideModal.classList.remove("show");
+});
+
+closeGuideButton.addEventListener("click", () => {
+    guideModal.classList.remove("show");
+})
+
+guideModal.addEventListener("click", (event) => {
+    if (event.target === guideModal){
+        guideModal.classList.remove("show");
+    }
+})
