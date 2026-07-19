@@ -415,6 +415,27 @@ button{
     font-weight:600;
 }
 
+.badge-hotsale{
+    display:none;
+    
+    position:absolute;
+
+    top:5px;
+    right:5px;
+
+    background:var(--primary);
+
+    color:var(--background);
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size: var(--fs-badge);
+
+    font-weight:600;
+}
+
 /* ==========================
    Modal
 ========================== */
@@ -737,5 +758,13 @@ button{
     .feature-card p{
         display:none;
     }
+    
+   .badge{
+       display:none;
+   }
+   
+  .badge-hotsale{
+      display:block;
+  }
 
 }
