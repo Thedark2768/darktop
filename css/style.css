@@ -151,6 +151,28 @@ button{
     opacity:.9;
 }
 
+.secondary-button{
+    margin-left: 15px;
+
+    padding: 15px 35px;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    border: 1px solid var(--primary);
+
+    border-radius: 10px;
+
+    transition: var(--transition);
+}
+
+.secondary-button:hover{
+    background: var(--primary);
+
+    color: var(--background);
+}
+
 .primary-button,
 .product-card button,
 .category-button{
@@ -429,26 +451,83 @@ button{
 
     background:var(--surface);
 
-    border:1px solid var(--border);
+    border:1px solid rgba(0, 217, 217, .25);
 
     border-radius:var(--radius);
 
-    padding:30px;
+    padding:35px;
 
     position:relative;
 
+    box-shadow: 0 0 35px rgba(0, 217, 217, .25);
+
+    animation: modalShow .25s ease;
+
+}
+
+@keyframes modalShow {
+    from{
+        opacity: 0;
+
+        transform: translateY(20px)
+        scale(.96);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0)
+        scale(1);
+    }
 }
 
 .modal-content h2{
-
-    margin-bottom:20px;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom:10px;
 
 }
 
 .modal-content p{
 
-    margin-bottom:20px;
+    margin-bottom:10px;
 
+}
+
+.modal-content article{
+    display: flex;
+
+    gap: 18px;
+
+    align-items: flex-start;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, .05);
+
+    transition: .3s;
+}
+
+.modal-content article h3{
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+.modal-content article p{
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+.modal-content article:hover{
+    border-color: var(--primary);
+
+    transform: translateX(5px);
 }
 
 .modal-content label{
@@ -504,6 +583,61 @@ button{
     color: #ff6b6b;
     font-size: var(--fs-badge);
     min-height: 16px;
+}
+
+/* ==========================
+   Guide Modal
+========================== */
+.guide-list{
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+
+    margin: 20px 0;
+}
+
+.guide-list li{
+    display: flex;
+
+    gap: 16px;
+
+    align-items: flex-start;
+}
+
+.guide-number{
+    width: 30px;
+    height: 30px;
+    
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    color: var(--background);
+
+    font-weight: 700;
+}
+
+.guide-list h3{
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.guide-list p{
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    line-height: 1;
 }
 
 
@@ -569,6 +703,14 @@ button{
         gap:20px;
         flex-wrap:wrap;
         justify-content:center;
+    }
+
+    .secondary-button{
+        display: block;
+
+        width: 100%;
+
+        margin: 15px auto 0;
     }
 
     .category-nav{
