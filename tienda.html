@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda | Recargas de Free Fire</title>
+    <meta name="description" content="Compra diamantes y mas recargas digitales en Guatemala. Entrega rapida y atencion personalizada con DarkTop.">
+    <link rel="shortcut icon" href="assets/darktop/favicon.ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/tienda.css">
+</head>
+<body>
+
+    <header class="header">
+
+        <a href="index.html" class="logo">
+            <img src="assets/darktop/favicon.png" alt="DarkTop">
+        </a>
+
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="tienda.html">Tienda</a>
+            <a href="contacto.html">Contacto</a>
+        </nav>
+
+    </header>
+    <main>
+
+        <!-- Hero -->
+
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Tienda DarkTop</h1>
+
+                    <p>
+                        Recarga tus juegos favoritos de forma segura.
+                    </p>
+                </div>
+            </section>
+    </main>
+
+            <nav class="category-nav">
+
+                <button class="category-button active" data-category="diamonds">
+                    Diamantes
+                </button>
+
+                <button class="category-button" data-category="cards">
+                    Tarjetas
+                </button>
+
+                <button class="category-button" data-category="assets">
+                    Conjuntos
+                </button>
+
+            </nav>
+
+            <!-- Diamonds -->
+
+            <section id="diamonds" class="category visible">
+
+                <div class="product-grid">
+
+                    <article class="product-card">
+                        <h3>110 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q10</p>
+                        <button class="primary-button buy-button" data-product="110 Diamonds" data-price="10">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <span class="badge">Recomendado</span>
+                        <h3>341 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q30</p>
+                        <button class="primary-button buy-button" data-product="341 Diamonds" data-price="30">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>572 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q48</p>
+                        <button class="primary-button buy-button" data-product="572 Diamonds" data-price="48">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <span class="badge">Recomendado</span>
+                        <h3>1166 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q95</p>
+                        <button class="primary-button buy-button" data-product="1166 Diamonds" data-price="95">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>2398 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q190</p>
+                        <button class="primary-button buy-button" data-product="2398 Diamonds" data-price="190">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>6160 Diamantes</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q480</p>
+                        <button class="primary-button buy-button" data-product="6160 Diamonds" data-price="480">Comprar</button>
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- Cards -->
+
+            <section id="cards" class="category">
+
+                <div class="product-grid">
+
+                    <article class="product-card">
+                        <h3>Tarjeta Semanal</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q30</p>
+                        <button class="primary-button buy-button" data-product="Weekly Membership" data-price="30">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>Tarjeta Mensual</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q110</p>
+                        <button class="primary-button buy-button" data-product="Monthly Membership" data-price="110">Comprar</button>
+                    </article>
+
+                    <article class="product-card">
+                        <span class="badge">Recomendado</span>
+                        <h3>Pase Booyah</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q30</p>
+                        <button class="primary-button buy-button" data-product="Booyah Pass" data-price="30">Comprar</button>
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- Assets -->
+
+            <section id="assets" class="category">
+
+                <div class="product-grid">
+
+                    <article class="product-card">
+                        <h3>Rey Sinfonia</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q55</p>
+                        <button class="primary-button buy-button" data-product="King Sinfonia" data-price="55">Comprar</button>
+                    </article>
+                    
+                    <article class="product-card">
+                        <h3>Reina Melodia</h3>
+                        <p>Entrega inmediata</p>
+                        <p class="price">Q60</p>
+                        <button class="primary-button buy-button" data-product="Queen Melody" data-price="60">Comprar</button>
+                    </article>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <div id="purchase-modal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-button">&times;</button>
+
+            <h2>Completa tu compra</h2>
+
+            <p id="selected-product"></p>
+
+            <label for="id">ID</label>
+            <input
+                type="text"
+                id="id"
+                inputmode="numeric"
+                maxlength="11"
+                placeholder="Introuce tu ID">
+            <small id="id-error" class="input-error"></small>
+
+            <label for="payment-method">Metodo de pago</label>
+
+            <select id="payment-method">
+                <option>Transferencia</option>
+                <option>Dinero en mano</option>
+            </select>
+
+            <button id="continue-button" class="primary-button">
+                Continuar
+            </button>
+
+        </div>
+
+    </div>
+    <footer class="footer">
+        <p>© 2026 DarkTop. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/tienda.js"></script>
+</body>
+</html>
