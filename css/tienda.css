@@ -787,7 +787,7 @@ section{
 
         }
 
-        .product-card p{
+        .product-card p:first-child{
             display: none;
         }
         
