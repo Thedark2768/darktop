@@ -735,8 +735,15 @@ section{
     display: block;
 }
 @media (max-width:768px){
-    section{
+    .category-nav{
+        gap: 10px;
+    }
 
+    .category-button{
+        padding: 6px 10px;
+    }
+
+    section{
         padding:65px 20px;
 
     }
@@ -787,7 +794,7 @@ section{
 
         }
 
-        .product-card p:first-child{
+        .product-card p{
             display: none;
         }
         
@@ -813,4 +820,47 @@ section{
 
         font-size: 8px;
     }
+}
+
+@media (max-width:360px){
+
+    .hero h1{
+
+        font-size:26px;
+
+    }
+
+    .hero p{
+
+        font-size:15px;
+
+    }
+
+    .navbar{
+
+        gap:12px;
+
+    }
+
+    .navbar a{
+
+        font-size:14px;
+
+    }
+
+    .primary-button,
+    .secondary-button{
+
+        font-size:15px;
+
+        padding:14px 20px;
+
+    }
+
+    .modal-content{
+
+        padding:24px 18px;
+
+    }
+
 }
