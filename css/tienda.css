@@ -303,8 +303,6 @@ section{
     top:5px;
     right:5px;
 
-    background:var(--primary);
-
     color:var(--background);
 
     padding:4px 8px;
@@ -314,6 +312,30 @@ section{
     font-size: 12px;
 
     font-weight:600;
+}
+
+.badgetype-recommended{
+    background:var(--primary);
+}
+
+.badgetype-mega{
+    background: linear-gradient(135deg, #ff00ff 0%, #8b5cf6 100%);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+}
+
+.badgetype-ultra{
+    background: linear-gradient(135deg, #0066ff 0%, #00d9d9 100%);
+    box-shadow: 0 0 25px var(--primary);
+}
+
+.badgetype-giga{
+    background: linear-gradient(135deg, #00ff88 0%, #CCFF00 100%);
+    box-shadow: 0 0 25px rgba(204, 255, 0, 0.7);
+}
+
+.badgetype-omega{
+    background: linear-gradient(135deg, #000 0%, #ffd700 100%);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
 }
 
 /* ==========================
@@ -735,8 +757,13 @@ section{
     display: block;
 }
 @media (max-width:768px){
+    .hero{
+        min-height: 25vh;
+    }
+
     .category-nav{
         gap: 10px;
+        margin: 0;
     }
 
     .category-button{
@@ -794,7 +821,7 @@ section{
 
         }
 
-        .product-card p{
+        .product-card p:first-of-type{
             display: none;
         }
         
@@ -819,6 +846,10 @@ section{
         padding:2px 4px;
 
         font-size: 8px;
+    }
+
+    .modal-content h2{
+        font-size: 26px;
     }
 }
 
