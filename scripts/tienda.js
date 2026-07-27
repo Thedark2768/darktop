@@ -30,7 +30,7 @@ const modal = document.getElementById("purchase-modal");
 const buyButtons = document.querySelectorAll(".buy-button");
 const closeButton = document.querySelector(".close-button");
 const idInput = document.getElementById("id");
-const nicknameInput = document.getElementById("nickname").value;
+const nicknameInput = document.getElementById("nickname");
 const idError = document.getElementById("id-error");
 const continueButton = document.getElementById("continue-button");
 
@@ -78,6 +78,13 @@ continueButton.addEventListener("click", () => {
     }
     const payment = document.getElementById("payment-method").value;
 
+    const nickname = nicknameInput.value.trim();
+
+    if (nickname === "") {
+    alert("Por favor introduce el nombre de jugador.");
+    return;
+    }
+
    const message = `
 🛒 *Nueva Orden - DarkTop*
 
@@ -86,7 +93,7 @@ continueButton.addEventListener("click", () => {
 
 🆔 ID: ${id}
 
-👤Nombre de jugador: ${nicknameInput}
+👤Nombre de jugador: ${nickname}
 
 💳 Metodo de Pago: ${payment}
 `;
