@@ -30,6 +30,7 @@ const modal = document.getElementById("purchase-modal");
 const buyButtons = document.querySelectorAll(".buy-button");
 const closeButton = document.querySelector(".close-button");
 const idInput = document.getElementById("id");
+const nicknameInput = document.getElementById("nickname").value;
 const idError = document.getElementById("id-error");
 const continueButton = document.getElementById("continue-button");
 
@@ -84,6 +85,8 @@ continueButton.addEventListener("click", () => {
 💰 Precio: ${currentPrice}
 
 🆔 ID: ${id}
+
+👤Nombre de jugador: ${nicknameInput}
 
 💳 Metodo de Pago: ${payment}
 `;
