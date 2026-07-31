@@ -15,17 +15,43 @@
 
     <header class="header">
 
-        <a href="index.html" class="logo">
+    <a href="index.html" class="logo">
             <img src="assets/darktop/favicon.png" alt="DarkTop">
         </a>
 
-        <nav class="navbar">
-            <a href="index.html">Inicio</a>
-            <a href="tienda.html">Tienda</a>
-            <a href="contacto.html">Contacto</a>
-        </nav>
+    <nav class="navbar" id="mobileMenu">
 
-    </header>
+    <a href="index.html">Inicio</a>
+    <a href="tienda.html">Tienda</a>
+    <a href="contacto.html">Contacto</a>
+
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+
+        <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M4 6H20
+                   M4 12H20
+                   M4 18H20"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"/>
+
+        </svg>
+
+    </button>
+
+    
+
+</header>
+    <div id="overlay" class="overlay"></div>
     <main>
 
         <!-- Hero -->
@@ -247,5 +273,6 @@
     </footer>
 
     <script src="scripts/tienda.js"></script>
+    <script src="scripts/header.js"></script>
 </body>
 </html>
