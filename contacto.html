@@ -3,32 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkTop - Contacto</title>
+
+    <title>DarkTop Guatemala | Contacto</title>
+    <meta name="description" content="Contáctanos para resolver dudas sobre recargas de Free Fire, pagos y soporte en Guatemala.">
+    <meta property="og:title" content="DarkTop Guatemala">
+    <meta property="og:description" content="Estamos listos para ayudarte.">
+    <meta property="og:image" content="https://darktop.store/assets/darktop/favicon.png">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="css/style.css">  
+    <link rel="icon" href="/assets/darktop/favicon.png" type="image/png" sizes="1024x1024">
+    <link rel="shortcut icon" href="/assets/darktop/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/darktop/favicon.png">
 </head>
 
-<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#0B0F14; color:white; font-family:Arial, sans-serif; text-align:center;">
+    <header class="header">
 
-    <div>
-        <h1 style="color:#00D9D9; font-size:42px; margin-bottom:10px;">
-            DarkTop
-        </h1>
-
-        <h2 style="margin:0;">
-            🚧 Página no disponible
-        </h2>
-
-        <p style="color:#bdbdbd; font-size:18px;">
-            La sección de contacto está en proceso de desarrollo.
-        </p>
-
-        <p style="color:#888;">
-            Muy pronto estará disponible.
-        </p>
-
-        <a href="index.html" style="display:inline-block; margin-top:20px; padding:12px 25px; background:#00D9D9; color:#0B0F14; text-decoration:none; border-radius:8px; font-weight:bold;">
-            Volver al inicio
+    <a href="index.html" class="logo">
+            <img src="assets/darktop/favicon.png" alt="DarkTop">
         </a>
+
+    <nav class="navbar" id="mobileMenu">
+
+    <a href="index.html">Inicio</a>
+    <a href="tienda.html">Tienda</a>
+    <a href="contacto.html">Contacto</a>
+
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+
+        <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M4 6H20
+                   M4 12H20
+                   M4 18H20"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"/>
+
+        </svg>
+
+    </button>
+
+    
+
+</header>
+    <div id="overlay" class="overlay"></div>
+
+    <main>
+        <section class="hero">
+            <div class="contact-hero-content">
+                <h1>Contáctanos</h1>
+
+                <p>
+                    ¿Tienes dudas sobre una compra, un pago o una recargar?
+                    Nuestro equipo está listo para ayudarte.
+                </p>
+
+                <a href="#" class="primary-button">
+                    Escribir por Whatsapp
+                </a>
+            </div>
+        </section>
+
+        <section>
+
+    <div class="section-header">
+        <h2>Formas de contacto</h2>
+        <p>Estamos disponibles para ayudarte antes, durante y después de tu compra.</p>
     </div>
 
+    <div class="contact-grid">
+
+        <article class="contact-card">
+
+            <h3>WhatsApp</h3>
+
+            <p>Atención rápida y personalizada.</p>
+
+
+        </article>
+
+        <article class="contact-card">
+
+            <h3>Correo</h3>
+
+            <p>soporte@darktop.store</p>
+
+        </article>
+
+        <article class="contact-card">
+
+            <h3>Horario</h3>
+
+            <p>Lunes a Domingo<br>8:00 AM - 10:00 PM</p>
+
+        </article>
+
+    </div>
+
+</section>
+
+    <section class="contact-form-section">
+
+    <div class="section-header">
+        <h2>Envíanos un mensaje</h2>
+        <p>Completa el formulario y te responderemos lo antes posible.</p>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+
+        <div class="input-group">
+
+            <label for="name">Nombre</label>
+
+            <input
+                type="text"
+                id="name"
+                name="nombre"
+                placeholder="Tu nombre"
+                required>
+
+        </div>
+
+        <div class="input-group">
+
+            <label for="email">Correo electrónico</label>
+
+            <input
+                type="email"
+                id="email"
+                name="correo"
+                placeholder="ejemplo@correo.com"
+                required>
+
+        </div>
+
+        <div class="input-group">
+
+            <label for="deal">Asunto</label>
+
+            <input
+                type="text"
+                id="deal"
+                name="asunto"
+                placeholder="¿En qué podemos ayudarte?"
+                required>
+
+        </div>
+
+        <div class="input-group">
+
+            <label for="message">Mensaje</label>
+
+            <textarea
+                id="message"
+                name="mensaje"
+                rows="7"
+                placeholder="Escribe tu mensaje..."
+                required></textarea>
+
+        </div>
+
+        <button type="submit" class="primary-button">
+
+            Enviar mensaje
+
+        </button>
+
+    </form>
+
+</section>
+
+<section class="faq">
+
+    <div class="section-header">
+
+        <h2>Preguntas frecuentes</h2>
+
+        <p>Resolvemos las dudas más comunes de nuestros clientes.</p>
+
+    </div>
+
+    <div class="faq-container">
+
+        <details class="faq-item">
+
+            <summary>¿Cuánto tarda una recarga?</summary>
+
+            <p>
+                Normalmente entre 5 y 10 minutos después de confirmar el pago.
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>¿Necesitan mi contraseña?</summary>
+
+            <p>
+                No. Solo necesitamos tu ID de jugador para realizar la recarga.
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>¿Qué métodos de pago aceptan?</summary>
+
+            <p>
+                Aceptamos transferencia bancaria y pago en efectivo.
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>¿Qué hago si escribí mal mi ID?</summary>
+
+            <p>
+                Contáctanos inmediatamente antes de confirmar el pago para ayudarte.
+            </p>
+
+        </details>
+
+    </div>
+
+</section>
+
+<section class="cta">
+
+        <h2>¿Listo para hacer tu recarga?</h2>
+
+        <p>
+
+            Miles de jugadores confían en DarkTop para comprar diamantes,
+            pases y tarjetas digitales de forma rápida, segura y con atención personalizada.
+
+        </p>
+
+        <a href="tienda.html" class="primary-button">
+
+            Ir a la tienda
+
+        </a>
+
+        <a href="https://wa.me/50237386967" class="secondary-button">
+
+            Hablar por WhatsApp
+
+        </a>
+
+</section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 DarkTop. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/contacto.js"></script>
+    <script src="scripts/header.js"></script>
 </body>
 </html>
