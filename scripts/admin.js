@@ -63,9 +63,9 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <h3>${pedido.producto}</h3>
 
-<p>ID: ${pedido.idJugador}</p>
+<p>ID: ${pedido.id}</p>
 
-<p>Jugador: ${pedido.nombreJugador}</p>
+<p>Jugador: ${pedido.jugador}</p>
 
 <p>Precio: Q${pedido.precio}</p>
 
