@@ -99,6 +99,8 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <p>Estado: ${pedido.estado}</p>
 
+<p>Fecha: ${pedido.fecha}<p>
+
 
 <button class="processing"
 onclick="cambiarEstado('${doc.id}', 'Procesando')">
