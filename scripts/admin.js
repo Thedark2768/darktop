@@ -1,5 +1,9 @@
-import { db } from "./firebase.js";
-console.log(db);
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 
 import { 
     collection,
