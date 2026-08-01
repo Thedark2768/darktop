@@ -1,3 +1,10 @@
+import { db } from "./firebase.js";
+import {
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
 // Categories
 const buttons = document.querySelectorAll(".category-button");
 const categories = document.querySelectorAll(".category");
@@ -54,7 +61,7 @@ modal.addEventListener("click", (event) => {
     }
 });
 
-continueButton.addEventListener("click", () => {
+continueButton.addEventListener("click", async () => {
     const id = idInput.value.trim();
 
     idError.textContent = "";
@@ -97,6 +104,15 @@ continueButton.addEventListener("click", () => {
 
 💳 Metodo de Pago: ${payment}
 `;
+    await addDoc(collection(db, "pedidos"), {
+    producto: currentProduct,
+    precio: currentPrice,
+    uid: id,
+    jugador: nickname,
+    metodoPago: payment,
+    estado: "Pendiente",
+    fecha: serverTimestamp()
+});
 
     window.open(
         `https://wa.me/${whatsapp_number}?text=${encodeURIComponent(message)}`,
