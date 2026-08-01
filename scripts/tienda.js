@@ -41,6 +41,9 @@ const nicknameInput = document.getElementById("nickname");
 const idError = document.getElementById("id-error");
 const continueButton = document.getElementById("continue-button");
 
+let currentProduct = "";
+let currentPrice = "";
+
 buyButtons.forEach(button =>{
     button.addEventListener("click", () => {
         currentProduct = button.dataset.product;
