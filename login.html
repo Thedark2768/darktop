@@ -12,43 +12,49 @@
 
 <body>
 
-    <main class="login-container">
+<main class="login-container">
 
-        <section class="login-card">
+    <section class="login-card">
 
+        <div class="login-logo">
             <h1>DarkTop</h1>
-
             <p>Panel de administración</p>
+        </div>
 
-            <form id="loginForm">
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Correo electrónico"
-                    required
-                >
+        <form id="loginForm">
 
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Contraseña"
-                    required
-                >
+            <input 
+                type="email" 
+                id="email"
+                placeholder="Correo electrónico"
+                required
+            >
 
-                <button type="submit">
-                    Iniciar sesión
-                </button>
 
-                <p id="loginError"></p>
+            <input 
+                type="password"
+                id="password"
+                placeholder="Contraseña"
+                required
+            >
 
-            </form>
 
-        </section>
+            <button type="submit">
+                Iniciar sesión
+            </button>
 
-    </main>
 
-    <script type="module" src="scripts/login.js"></script>
+            <p id="loginError"></p>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<script type="module" src="scripts/login.js"></script>
 
 </body>
 
