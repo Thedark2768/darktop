@@ -30,7 +30,7 @@ console.log("Pedidos encontrados:", consulta.size);
 
             <p>ID: ${pedido.id}</p>
 
-            <p>Jugador: ${pedido.nombre}</p>
+            <p>Jugador: ${pedido.jugador}</p>
 
             <p>Precio: Q${pedido.precio}</p>
 
