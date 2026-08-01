@@ -110,7 +110,7 @@ continueButton.addEventListener("click", async () => {
     await addDoc(collection(db, "pedidos"), {
     producto: currentProduct,
     precio: currentPrice,
-    uid: id,
+    id: id,
     jugador: nickname,
     metodoPago: payment,
     estado: "Pendiente",
