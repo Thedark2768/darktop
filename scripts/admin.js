@@ -4,6 +4,18 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+onAuthStateChanged(auth, (usuario) => {
+
+    if (!usuario) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    cargarPedidos();
+
+});
 
 import { 
     collection,
@@ -72,6 +84,4 @@ console.log("Pedidos encontrados:", consulta.size);
 
 }
 
-
-cargarPedidos();
 window.cambiarEstado = cambiarEstado;
