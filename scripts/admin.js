@@ -36,6 +36,14 @@ async function cambiarEstado(id, estado){
 }
 const lista = document.getElementById("listaPedidos");
 
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+    await signOut(auth);
+
+    window.location.href = "login.html";
+
+});
+
 
 async function cargarPedidos(){
 
