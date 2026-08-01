@@ -13,6 +13,8 @@ async function cargarPedidos(){
 
     const consulta = await getDocs(collection(db,"pedidos"));
 
+console.log("Pedidos encontrados:", consulta.size);
+
     lista.innerHTML = "";
 
     consulta.forEach((doc)=>{
