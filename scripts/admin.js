@@ -8,6 +8,16 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
+async function cambiarEstado(id, estado){
+
+    const referencia = doc(db, "pedidos", id);
+
+    await updateDoc(referencia, {
+        estado: estado
+    });
+
+    cargarPedidos();
+}
 const lista = document.getElementById("listaPedidos");
 
 
