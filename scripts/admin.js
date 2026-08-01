@@ -2,10 +2,11 @@ import { db } from "./firebase.js";
 console.log(db);
 
 import { 
-    collection, 
-    getDocs 
+    collection,
+    getDocs,
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
-
 
 const lista = document.getElementById("listaPedidos");
 
