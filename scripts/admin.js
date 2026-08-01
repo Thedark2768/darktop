@@ -74,15 +74,16 @@ console.log("Pedidos encontrados:", consulta.size);
 <p>Estado: ${pedido.estado}</p>
 
 
-<button onclick="cambiarEstado('${doc.id}', 'Procesando')">
+<button class="processing"
+onclick="cambiarEstado('${doc.id}', 'Procesando')">
 🔵 Procesando
 </button>
 
 
-<button onclick="cambiarEstado('${doc.id}', 'Entregado')">
+<button class="done"
+onclick="cambiarEstado('${doc.id}', 'Entregado')">
 🟢 Entregado
 </button>
-
 
 </article>
 
