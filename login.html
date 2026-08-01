@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DarkTop | Admin Login</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <section class="login-card">
+
+            <h1>DarkTop</h1>
+
+            <p>Panel de administración</p>
+
+            <form id="loginForm">
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Correo electrónico"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Contraseña"
+                    required
+                >
+
+                <button type="submit">
+                    Iniciar sesión
+                </button>
+
+                <p id="loginError"></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="js/login.js"></script>
+
+</body>
+
+</html>
