@@ -35,23 +35,34 @@ console.log("Pedidos encontrados:", consulta.size);
 
         lista.innerHTML += `
 
-        <article>
+<article>
 
-            <h3>${pedido.producto}</h3>
+<h3>${pedido.producto}</h3>
 
-            <p>ID: ${pedido.id}</p>
+<p>ID: ${pedido.idJugador}</p>
 
-            <p>Jugador: ${pedido.jugador}</p>
+<p>Jugador: ${pedido.nombreJugador}</p>
 
-            <p>Precio: Q${pedido.precio}</p>
+<p>Precio: Q${pedido.precio}</p>
 
-            <p>Pago: ${pedido.metodoPago}</p>
+<p>Pago: ${pedido.metodoPago}</p>
 
-            <p>Estado: ${pedido.estado}</p>
+<p>Estado: ${pedido.estado}</p>
 
-        </article>
 
-        `;
+<button onclick="cambiarEstado('${doc.id}', 'Procesando')">
+🔵 Procesando
+</button>
+
+
+<button onclick="cambiarEstado('${doc.id}', 'Entregado')">
+🟢 Entregado
+</button>
+
+
+</article>
+
+`;
 
     });
 
@@ -59,3 +70,4 @@ console.log("Pedidos encontrados:", consulta.size);
 
 
 cargarPedidos();
+window.cambiarEstado = cambiarEstado;
