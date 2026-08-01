@@ -17,11 +17,12 @@ onAuthStateChanged(auth, (usuario) => {
 
 });
 
-import { 
+import {
     collection,
     getDocs,
     doc,
-    updateDoc
+    updateDoc,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 async function cambiarEstado(id, estado){
@@ -43,6 +44,31 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     window.location.href = "login.html";
 
 });
+
+async function eliminarPedido(id) {
+
+    const confirmar = confirm(
+        "¿Seguro que quieres eliminar este pedido?"
+    );
+
+    if (!confirmar) return;
+
+    try {
+
+        await deleteDoc(doc(db, "pedidos", id));
+
+        alert("Pedido eliminado correctamente");
+
+        cargarPedidos();
+
+    } catch (error) {
+
+        console.error("Error al eliminar:", error);
+
+        alert("No se pudo eliminar el pedido");
+
+    }
+}
 
 
 async function cargarPedidos(){
@@ -85,6 +111,12 @@ onclick="cambiarEstado('${doc.id}', 'Entregado')">
 🟢 Entregado
 </button>
 
+<button
+    class="delete"
+    onclick="eliminarPedido('${doc.id}')">
+    🗑️ Eliminar
+</button>
+
 </article>
 
 `;
@@ -94,3 +126,4 @@ onclick="cambiarEstado('${doc.id}', 'Entregado')">
 }
 
 window.cambiarEstado = cambiarEstado;
+window.eliminarPedido = eliminarPedido;
