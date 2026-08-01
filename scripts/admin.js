@@ -4,7 +4,7 @@ console.log(db);
 import { 
     collection, 
     getDocs 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 
 const lista = document.getElementById("listaPedidos");
