@@ -113,6 +113,11 @@ button:hover {
     color: white;
 }
 
+.delete {
+    background: #dc2626;
+    color: white;
+}
+
 /* LOGIN DARKTOP */
 
 .login-container {
