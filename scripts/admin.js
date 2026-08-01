@@ -1,4 +1,5 @@
 import { db } from "./firebase.js";
+console.log(db);
 
 import { 
     collection, 
