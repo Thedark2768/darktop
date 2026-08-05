@@ -137,9 +137,10 @@ await addDoc(collection(db, "pedidos"), {
 
     fecha: serverTimestamp()
 });
-
-    window.open(
-        `https://wa.me/${whatsapp_number}?text=${encodeURIComponent(message)}`,
-        "_blank"
-    );
+alert(
+    `✅ Pedido registrado\n\n` +
+    `📦 Pedido: ${pedidoId}\n` +
+    `⭐ Código de reseña: ${codigoResena}`
+);
+    
 });
