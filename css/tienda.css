@@ -764,6 +764,231 @@ section{
 .category.visible{
     display: block;
 }
+
+/* =========================
+   CONFIRMACIÓN DE PEDIDO
+========================= */
+
+.success-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+}
+
+.success-overlay.active {
+    display: flex;
+}
+
+.success-card {
+
+    width: 100%;
+    max-width: 420px;
+
+    background: #111820;
+
+    border: 1px solid #263241;
+
+    border-radius: 22px;
+
+    padding: 28px 22px;
+
+    color: white;
+
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+
+    animation: successAppear .25s ease;
+}
+
+@keyframes successAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.success-icon {
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #00d9d9;
+
+    color: #071014;
+
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.success-card h2 {
+
+    margin: 5px 0 8px;
+
+    font-size: 25px;
+
+    color: #00d9d9;
+}
+
+.success-text {
+
+    color: #aab4c0;
+
+    margin-bottom: 22px;
+}
+
+.order-info,
+.review-code {
+
+    background: #0b1016;
+
+    border: 1px solid #263241;
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    margin-bottom: 14px;
+
+    text-align: left;
+}
+
+.order-info span,
+.review-code > span {
+
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 13px;
+
+    margin-bottom: 7px;
+}
+
+.order-info strong {
+
+    font-size: 18px;
+
+    color: white;
+}
+
+.code-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.code-box strong {
+
+    flex: 1;
+
+    color: #00d9d9;
+
+    font-size: 15px;
+
+    word-break: break-all;
+}
+
+.code-box button {
+
+    border: none;
+
+    background: #263241;
+
+    color: white;
+
+    padding: 9px 10px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.review-code small {
+
+    display: block;
+
+    color: #7f8a97;
+
+    margin-top: 10px;
+
+    line-height: 1.4;
+}
+
+.success-actions {
+
+    margin-top: 20px;
+}
+
+.whatsapp-button {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #25D366;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.close-button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    border: 1px solid #303b49;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: #aab4c0;
+
+    cursor: pointer;
+}
+
 @media (max-width:768px){
     .hero{
         min-height: 25vh;
