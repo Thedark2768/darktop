@@ -25,16 +25,21 @@ import {
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
-async function cambiarEstado(id, estado){
+async function cambiarEstado(id, estado) {
 
     const referencia = doc(db, "pedidos", id);
 
     await updateDoc(referencia, {
-        estado: estado
+
+        estado: estado,
+
+        reseñaHabilitada: estado === "Entregado"
+
     });
 
     cargarPedidos();
 }
+
 const lista = document.getElementById("listaPedidos");
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
