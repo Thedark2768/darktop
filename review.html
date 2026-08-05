@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Deja tu reseña | DarkTop</title>
+
+    <meta
+        name="description"
+        content="Comparte tu experiencia con DarkTop."
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="review-page">
+
+        <section class="review-card">
+
+            <div class="review-icon">
+                ⭐
+            </div>
+
+            <h1>
+                Deja tu reseña
+            </h1>
+
+            <p class="review-description">
+                Introduce el código que recibiste
+                después de realizar tu pedido.
+            </p>
+
+
+            <label for="reviewCode">
+                Código de reseña
+            </label>
+
+            <input
+                type="text"
+                id="reviewCode"
+                placeholder="CR-XXXX-XXXX"
+                maxlength="12"
+                autocomplete="off"
+            >
+
+
+            <p
+                id="reviewError"
+                class="review-error"
+            ></p>
+
+
+            <button
+                id="verifyReviewButton"
+                class="review-button"
+            >
+                Verificar código
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="./review.js"
+    ></script>
+
+</body>
+
+</html> 
