@@ -77,37 +77,60 @@ function generarCodigo(longitud) {
     return codigo;
 }
 
+let enviandoPedido = false;
+
 continueButton.addEventListener("click", async () => {
+
+    if (enviandoPedido) return;
+
+    enviandoPedido = true;
+
+    continueButton.disabled = true;
+    continueButton.textContent = "Registrando pedido...";
+
     const id = idInput.value.trim();
 
     idError.textContent = "";
 
-    if (id === ""){
+    if (id === "") {
         idError.textContent = "Por favor introduce tu ID.";
-        
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
         return;
     }
 
-    if(!/^\d+$/.test(id)){
+    if (!/^\d+$/.test(id)) {
         idError.textContent = "Solo numeros.";
-
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
         return;
     }
 
-    if (id.length < 8 || id.length > 11){
+    if (id.length < 8 || id.length > 11) {
         idError.textContent = "ID no apto.";
-
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
         return;
     }
+
     const payment = document.getElementById("payment-method").value;
 
     const nickname = nicknameInput.value.trim();
 
     if (nickname === "") {
-    alert("Por favor introduce el nombre de jugador.");
-    return;
+        alert("Por favor introduce el nombre de jugador.");
+
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
+
+        return;
     }
-   const message = `
+
+    const message = `
 🛒 *Nueva Orden - DarkTop*
 
 🎮 Producto: ${currentProduct}
@@ -115,32 +138,49 @@ continueButton.addEventListener("click", async () => {
 
 🆔 ID: ${id}
 
-👤Nombre de jugador: ${nickname}
+👤 Nombre de jugador: ${nickname}
 
 💳 Metodo de Pago: ${payment}
 `;
+
     const pedidoId = "DT-" + generarCodigo(6);
-const codigoResena = "CR-" + generarCodigo(4) + "-" + generarCodigo(4);
+    const codigoResena = "CR-" + generarCodigo(4) + "-" + generarCodigo(4);
 
-await addDoc(collection(db, "pedidos"), {
-    producto: currentProduct,
-    precio: currentPrice,
-    id: id,
-    jugador: nickname,
-    metodoPago: payment,
+    try {
 
-    estado: "Pendiente",
+        await addDoc(collection(db, "pedidos"), {
 
-    pedidoId: pedidoId,
-    codigoResena: codigoResena,
-    resenaUsada: false,
+            producto: currentProduct,
+            precio: currentPrice,
+            id: id,
+            jugador: nickname,
+            metodoPago: payment,
 
-    fecha: serverTimestamp()
-});
-alert(
-    `✅ Pedido registrado\n\n` +
-    `📦 Pedido: ${pedidoId}\n` +
-    `⭐ Código de reseña: ${codigoResena}`
-);
-    
+            estado: "Pendiente",
+
+            pedidoId: pedidoId,
+            codigoResena: codigoResena,
+            resenaUsada: false,
+
+            fecha: serverTimestamp()
+        });
+
+        alert(
+            `✅ Pedido registrado\n\n` +
+            `📦 Pedido: ${pedidoId}\n` +
+            `⭐ Código de reseña: ${codigoResena}`
+        );
+
+    } catch (error) {
+
+        console.error("Error al crear pedido:", error);
+
+        alert("❌ No se pudo registrar el pedido. Inténtalo nuevamente.");
+
+        // Solo permitimos volver a intentarlo si realmente falló
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
+    }
+
 });
