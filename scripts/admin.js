@@ -104,7 +104,9 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <article>
 
-<h3>${pedido.producto}</h3>
+<h3>📦 ${pedido.pedidoId || "Sin número"}</h3>
+
+<p><strong>${pedido.producto}</strong></p>
 
 <p>ID: ${pedido.id}</p>
 
@@ -115,6 +117,14 @@ console.log("Pedidos encontrados:", consulta.size);
 <p>Pago: ${pedido.metodoPago}</p>
 
 <p>Estado: ${pedido.estado}</p>
+
+<p>⭐ Código de reseña: 
+<strong>${pedido.codigoResena || "Sin código"}</strong>
+</p>
+
+<p>📝 Reseña utilizada:
+<strong>${pedido.resenaUsada ? "✅ Sí" : "❌ No"}</strong>
+</p>
 
 <p>📅 Fecha: ${formatearFecha(pedido.fecha)}</p>
 
@@ -130,6 +140,7 @@ onclick="cambiarEstado('${doc.id}', 'Entregado')">
 🟢 Entregado
 </button>
 
+
 <button
     class="delete"
     onclick="eliminarPedido('${doc.id}')">
@@ -137,7 +148,6 @@ onclick="cambiarEstado('${doc.id}', 'Entregado')">
 </button>
 
 </article>
-
 `;
 
     });
