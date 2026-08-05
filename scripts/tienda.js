@@ -64,6 +64,19 @@ modal.addEventListener("click", (event) => {
     }
 });
 
+function generarCodigo(longitud) {
+    const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let codigo = "";
+
+    for (let i = 0; i < longitud; i++) {
+        codigo += caracteres.charAt(
+            Math.floor(Math.random() * caracteres.length)
+        );
+    }
+
+    return codigo;
+}
+
 continueButton.addEventListener("click", async () => {
     const id = idInput.value.trim();
 
@@ -94,7 +107,6 @@ continueButton.addEventListener("click", async () => {
     alert("Por favor introduce el nombre de jugador.");
     return;
     }
-
    const message = `
 🛒 *Nueva Orden - DarkTop*
 
@@ -107,13 +119,22 @@ continueButton.addEventListener("click", async () => {
 
 💳 Metodo de Pago: ${payment}
 `;
-    await addDoc(collection(db, "pedidos"), {
+    const pedidoId = "DT-" + generarCodigo(6);
+const codigoResena = "CR-" + generarCodigo(4) + "-" + generarCodigo(4);
+
+await addDoc(collection(db, "pedidos"), {
     producto: currentProduct,
     precio: currentPrice,
     id: id,
     jugador: nickname,
     metodoPago: payment,
+
     estado: "Pendiente",
+
+    pedidoId: pedidoId,
+    codigoResena: codigoResena,
+    resenaUsada: false,
+
     fecha: serverTimestamp()
 });
 
