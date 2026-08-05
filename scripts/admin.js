@@ -70,6 +70,23 @@ async function eliminarPedido(id) {
     }
 }
 
+function formatearFecha(fecha) {
+
+    if (!fecha) return "Sin fecha";
+
+    // Firebase Timestamp
+    if (typeof fecha.toDate === "function") {
+        fecha = fecha.toDate();
+    }
+
+    return fecha.toLocaleString("es-GT", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
 
 async function cargarPedidos(){
 
@@ -99,7 +116,7 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <p>Estado: ${pedido.estado}</p>
 
-<p>Fecha: ${pedido.fecha}<p>
+<p>📅 Fecha: ${formatearFecha(pedido.fecha)}</p>
 
 
 <button class="processing"
