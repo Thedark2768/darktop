@@ -2,7 +2,14 @@ import { db } from "./firebase.js";
 
 import {
     doc,
-    getDoc
+    getDoc,
+    collection,
+    addDoc,
+    updateDoc,
+    serverTimestamp,
+    query,
+    where,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 const codigoInput = document.getElementById("codigo");
@@ -93,6 +100,88 @@ validarButton.addEventListener("click", async () => {
 
         mensaje.textContent =
             "Ocurrió un error.";
+
+    }
+
+});
+
+enviarResena.addEventListener("click", async () => {
+
+    if (!reviewActual) return;
+
+    const comentarioTexto = comentario.value.trim();
+
+    if (comentarioTexto === "") {
+
+        alert("Escribe un comentario.");
+
+        return;
+
+    }
+
+    try {
+
+        // Guardar la reseña
+        await addDoc(collection(db, "reviews"), {
+
+            codigoResena: reviewActual.codigoResena,
+
+            pedidoId: reviewActual.pedidoId,
+
+            producto: reviewActual.producto,
+
+            jugador: reviewActual.jugador,
+
+            estrellas: Number(estrellas.value),
+
+            comentario: comentarioTexto,
+
+            estado: "Pendiente",
+
+            fecha: serverTimestamp()
+
+        });
+
+        // Marcar el código como usado
+        await updateDoc(
+            doc(db, "reviewCodes", reviewActual.codigoResena),
+            {
+                usada: true
+            }
+        );
+
+        // Buscar el pedido y marcar la reseña como usada
+        const consulta = query(
+            collection(db, "pedidos"),
+            where(
+                "codigoResena",
+                "==",
+                reviewActual.codigoResena
+            )
+        );
+
+        const resultados = await getDocs(consulta);
+
+        resultados.forEach(async (pedido) => {
+
+            await updateDoc(
+                doc(db, "pedidos", pedido.id),
+                {
+                    resenaUsada: true
+                }
+            );
+
+        });
+
+        alert("¡Gracias por tu reseña!");
+
+        location.reload();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo enviar la reseña.");
 
     }
 
