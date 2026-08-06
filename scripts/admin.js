@@ -16,7 +16,7 @@ import {
     where
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js"; 
 
-onAuthStateChanged(auth, (usuario) => {
+onAuthStateChanged(auth, async (usuario) => {
 
     if (!usuario) {
 
