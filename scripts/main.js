@@ -79,13 +79,29 @@ async function cargarReviews() {
 
 <article class="review-card">
 
-<h3>${estrellas}</h3>
+    <div class="review-stars">
+        ${estrellas}
+    </div>
 
-<p>"${review.comentario}"</p>
+    <p class="review-comment">
+        "${review.comentario}"
+    </p>
 
-<strong>${review.jugador}</strong>
+    <div class="review-footer">
 
-<small>${review.producto}</small>
+        <div>
+
+            <strong class="review-player">
+                ${review.jugador}
+            </strong>
+
+            <span class="review-product">
+                ${review.producto}
+            </span>
+
+        </div>
+
+    </div>
 
 </article>
 
