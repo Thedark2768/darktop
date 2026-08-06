@@ -37,6 +37,27 @@
 
     <p id="jugador"></p>
 
+    <label for="estrellas">Calificación</label>
+
+<select id="estrellas">
+    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+    <option value="4">⭐⭐⭐⭐ (4)</option>
+    <option value="3">⭐⭐⭐ (3)</option>
+    <option value="2">⭐⭐ (2)</option>
+    <option value="1">⭐ (1)</option>
+</select>
+
+<label for="comentario">Comentario</label>
+
+<textarea
+    id="comentario"
+    rows="5"
+    maxlength="500"
+    placeholder="Cuéntanos cómo fue tu experiencia."></textarea>
+
+<button id="enviarResena">
+    Enviar reseña
+</button>
 </div>
 
 <script type="module" src="scripts/review.js"></script>
