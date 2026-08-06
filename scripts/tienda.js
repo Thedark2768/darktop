@@ -3,9 +3,10 @@ import { db } from "./firebase.js";
 import {
     collection,
     addDoc,
+    doc,
+    setDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
-
 
 // ========================================
 // CONFIGURACIÓN
@@ -283,7 +284,19 @@ continueButton.addEventListener("click", async () => {
 
             }
         );
-
+        
+await setDoc(
+    doc(db, "reviewCodes", codigoResena),
+    {
+        codigoResena: codigoResena,
+        pedidoId: pedidoId,
+        producto: currentProduct,
+        jugador: nickname,
+        habilitada: false,
+        usada: false,
+        fecha: serverTimestamp()
+    }
+);
 
         // ====================================
         // GUARDAR INFORMACIÓN DEL PEDIDO
