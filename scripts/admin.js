@@ -1,6 +1,11 @@
 import { auth, db } from "./firebase.js";
 
 import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+
+import {
     collection,
     getDocs,
     getDoc,
@@ -14,8 +19,8 @@ onAuthStateChanged(auth, (usuario) => {
     if (!usuario) {
 
         window.location.href = "login.html";
-
         return;
+
     }
 
     cargarPedidos();
@@ -24,47 +29,53 @@ onAuthStateChanged(auth, (usuario) => {
 
 async function cambiarEstado(id, estado) {
 
-    // Referencia al pedido
-    const pedidoRef = doc(db, "pedidos", id);
+    try {
 
-    // Obtener los datos del pedido
-    const pedidoSnap = await getDoc(pedidoRef);
+        // Pedido
+        const pedidoRef = doc(db, "pedidos", id);
 
-    if (!pedidoSnap.exists()) {
+        const pedidoSnap = await getDoc(pedidoRef);
 
-        alert("El pedido no existe.");
+        if (!pedidoSnap.exists()) {
 
-        return;
+            alert("El pedido no existe.");
+            return;
+
+        }
+
+        const pedido = pedidoSnap.data();
+
+        // Actualizar pedido
+        await updateDoc(pedidoRef, {
+
+            estado: estado,
+            reseñaHabilitada: estado === "Entregado"
+
+        });
+
+        // Actualizar reviewCodes
+        const reviewCodeRef = doc(
+            db,
+            "reviewCodes",
+            pedido.codigoResena
+        );
+
+        await updateDoc(reviewCodeRef, {
+
+            estado: estado,
+            habilitada: estado === "Entregado"
+
+        });
+
+        cargarPedidos();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo actualizar el estado.");
 
     }
-
-    const pedido = pedidoSnap.data();
-
-    // Actualizar el pedido
-    await updateDoc(pedidoRef, {
-
-        estado: estado,
-
-        reseñaHabilitada: estado === "Entregado"
-
-    });
-
-    // Actualizar reviewCodes
-    const reviewCodeRef = doc(
-        db,
-        "reviewCodes",
-        pedido.codigoResena
-    );
-
-    await updateDoc(reviewCodeRef, {
-
-        estado: estado,
-
-        habilitada: estado === "Entregado"
-
-    });
-
-    cargarPedidos();
 
 }
 
@@ -101,37 +112,42 @@ async function eliminarPedido(id) {
         alert("No se pudo eliminar el pedido");
 
     }
+
 }
 
 function formatearFecha(fecha) {
 
     if (!fecha) return "Sin fecha";
 
-    // Firebase Timestamp
     if (typeof fecha.toDate === "function") {
+
         fecha = fecha.toDate();
+
     }
 
     return fecha.toLocaleString("es-GT", {
+
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit"
+
     });
+
 }
 
-async function cargarPedidos(){
+async function cargarPedidos() {
 
-    const consulta = await getDocs(collection(db,"pedidos"));
+    const consulta = await getDocs(collection(db, "pedidos"));
 
-console.log("Pedidos encontrados:", consulta.size);
+    console.log("Pedidos encontrados:", consulta.size);
 
     lista.innerHTML = "";
 
-    consulta.forEach((doc)=>{
+    consulta.forEach((docSnap) => {
 
-        const pedido = doc.data();
+        const pedido = docSnap.data();
 
         lista.innerHTML += `
 
@@ -151,7 +167,7 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <p>Estado: ${pedido.estado}</p>
 
-<p>⭐ Código de reseña: 
+<p>⭐ Código de reseña:
 <strong>${pedido.codigoResena || "Sin código"}</strong>
 </p>
 
@@ -161,26 +177,24 @@ console.log("Pedidos encontrados:", consulta.size);
 
 <p>📅 Fecha: ${formatearFecha(pedido.fecha)}</p>
 
-
 <button class="processing"
-onclick="cambiarEstado('${doc.id}', 'Procesando')">
+onclick="cambiarEstado('${docSnap.id}', 'Procesando')">
 🔵 Procesando
 </button>
 
-
 <button class="done"
-onclick="cambiarEstado('${doc.id}', 'Entregado')">
+onclick="cambiarEstado('${docSnap.id}', 'Entregado')">
 🟢 Entregado
 </button>
 
-
 <button
-    class="delete"
-    onclick="eliminarPedido('${doc.id}')">
-    🗑️ Eliminar
+class="delete"
+onclick="eliminarPedido('${docSnap.id}')">
+🗑️ Eliminar
 </button>
 
 </article>
+
 `;
 
     });
