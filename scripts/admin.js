@@ -1,9 +1,14 @@
 import { auth, db } from "./firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+    collection,
+    getDocs,
+    getDoc,
+    doc,
+    updateDoc,
+    deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
 onAuthStateChanged(auth, (usuario) => {
 
     if (!usuario) {
