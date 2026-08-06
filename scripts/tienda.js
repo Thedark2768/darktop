@@ -183,7 +183,7 @@ continueButton.addEventListener("click", async () => {
         continueButton.textContent = "Continuar";
     }
 
-});==============
+}); ==============
 // MANEJO DEL CIERRE DEL MODAL DE ÉXITO
 // ========================================
 
