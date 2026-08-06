@@ -271,10 +271,8 @@ onclick="eliminarPedido('${docSnap.id}')">
 
 async function cargarReviews() {
 
-    const consulta = query(
-        collection(db, "reviews"),
-        where("estado", "==", "Pendiente")
-    );
+    const consulta = collection(db, "reviews");
+const snapshot = await getDocs(consulta);
 
     const snapshot = await getDocs(consulta);
 
@@ -312,6 +310,7 @@ async function cargarReviews() {
 <p>Jugador: ${review.jugador}</p>
 
 <p>${review.comentario}</p>
+<p><strong>Estado:</strong> ${review.estado}</p>
 
 <button
 class="done"
@@ -327,6 +326,12 @@ onclick="rechazarReview('${docSnap.id}')">
 
 ❌ Ocultar
 
+</button>
+
+<button
+class="delete"
+onclick="eliminarReview('${docSnap.id}')">
+🗑️ Eliminar
 </button>
 
 </article>
@@ -387,7 +392,36 @@ async function rechazarReview(id) {
 
 }
 
+async function eliminarReview(id) {
+
+    const confirmar = confirm(
+        "¿Eliminar esta reseña definitivamente?"
+    );
+
+    if (!confirmar) return;
+
+    try {
+
+        await deleteDoc(
+            doc(db, "reviews", id)
+        );
+
+        await cargarReviews();
+
+        alert("Reseña eliminada.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo eliminar.");
+
+    }
+
+}
+
 window.cambiarEstado = cambiarEstado;
 window.eliminarPedido = eliminarPedido;
 window.aprobarReview = aprobarReview;
 window.rechazarReview = rechazarReview; 
+window.eliminarReview = eliminarReview;
