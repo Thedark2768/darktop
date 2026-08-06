@@ -99,7 +99,32 @@ async function eliminarPedido(id) {
 
     try {
 
-        await deleteDoc(doc(db, "pedidos", id));
+        // Obtener el pedido
+        const pedidoRef = doc(db, "pedidos", id);
+
+        const pedidoSnap = await getDoc(pedidoRef);
+
+        if (!pedidoSnap.exists()) {
+
+            alert("El pedido no existe.");
+
+            return;
+
+        }
+
+        const pedido = pedidoSnap.data();
+
+        // Eliminar el código de reseña
+        if (pedido.codigoResena) {
+
+            await deleteDoc(
+                doc(db, "reviewCodes", pedido.codigoResena)
+            );
+
+        }
+
+        // Eliminar el pedido
+        await deleteDoc(pedidoRef);
 
         alert("Pedido eliminado correctamente");
 
