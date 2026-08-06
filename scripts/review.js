@@ -32,6 +32,8 @@ const enviarResena = document.getElementById("enviarResena");
 
 let reviewActual = null;
 
+let enviandoResena = false;
+
 validarButton.addEventListener("click", async () => {
 
     const codigo = codigoInput.value.trim().toUpperCase();
@@ -106,6 +108,13 @@ validarButton.addEventListener("click", async () => {
 });
 
 enviarResena.addEventListener("click", async () => {
+    if (enviandoResena) return;
+
+enviandoResena = true;
+
+enviarResena.disabled = true;
+
+enviarResena.textContent = "Enviando...";
 
     if (!reviewActual) return;
 
@@ -115,11 +124,29 @@ enviarResena.addEventListener("click", async () => {
 
         alert("Escribe un comentario.");
 
+        enviandoResena = false;
+
+enviarResena.disabled = false;
+
+enviarResena.textContent = "Enviar reseña";
+
         return;
 
     }
 
     try {
+
+        const reviewSnap = await getDoc(
+    doc(db, "reviewCodes", reviewActual.codigoResena)
+);
+
+if (reviewSnap.data().usada) {
+
+    alert("Este código ya fue utilizado.");
+
+    return;
+
+}
 
         // Guardar la reseña
         await addDoc(collection(db, "reviews"), {
@@ -180,6 +207,12 @@ enviarResena.addEventListener("click", async () => {
     } catch (error) {
 
         console.error(error);
+
+        enviandoResena = false;
+
+enviarResena.disabled = false;
+
+enviarResena.textContent = "Enviar reseña";
 
         alert("No se pudo enviar la reseña.");
 
