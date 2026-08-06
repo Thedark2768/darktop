@@ -17,6 +17,12 @@ const producto = document.getElementById("producto");
 
 const jugador = document.getElementById("jugador");
 
+const estrellas = document.getElementById("estrellas");
+
+const comentario = document.getElementById("comentario");
+
+const enviarResena = document.getElementById("enviarResena");
+
 validarButton.addEventListener("click", async () => {
 
     const codigo = codigoInput.value.trim().toUpperCase();
