@@ -3,91 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deja tu reseña | DarkTop</title>
-    <meta name="description" content="Comparte tu experiencia con DarkTop.">
-    <link rel="stylesheet" href="css/review.css"> <!-- Asegúrate de que esta ruta sea correcta -->
-    <!-- Si tu header general está en un archivo aparte y lo quieres aquí -->
-    <!-- <link rel="stylesheet" href="css/header.css"> -->
+
+    <title>Enviar reseña | DarkTop</title>
+
+    <link rel="stylesheet" href="css/review.css">
 </head>
 <body>
 
-    <!-- Header (Opcional, si quieres el mismo header que en tienda.html) -->
-    <header class="header">
-        <a href="index.html" class="logo">
-            <img src="assets/darktop/favicon.png" alt="DarkTop">
-        </a>
-        <nav class="navbar">
-            <a href="index.html">Inicio</a>
-            <a href="tienda.html">Tienda</a>
-            <a href="contacto.html">Contacto</a>
-        </nav>
-        <!-- Botón de menú para móvil si aplica -->
-    </header>
+    <main class="review-container">
 
-    <main class="review-page-container">
+        <h1>⭐ Comparte tu experiencia</h1>
 
-        <!-- Sección 1: Ingreso del Código de Review -->
-        <section id="code-validation-section" class="review-section active">
-            <div class="review-card">
-                <div class="review-icon">⭐</div>
-                <h1>Deja tu reseña</h1>
-                <p class="review-description">Introduce el código que recibiste después de realizar tu pedido.</p>
+        <p>
+            Introduce el código de reseña que recibiste al realizar tu pedido.
+        </p>
 
-                <div class="input-group">
-                    <label for="reviewCode">Código de reseña</label>
-                    <input type="text" id="reviewCode" placeholder="CR-XXXX-XXXX" maxlength="12" autocomplete="off">
-                    <small id="reviewError" class="error-message"></small>
-                </div>
+        <input
+            type="text"
+            id="reviewCode"
+            placeholder="CR-XXXX-XXXX"
+            autocomplete="off">
 
-                <button id="verifyReviewButton" class="primary-button">Verificar código</button>
-            </div>
-        </section>
+        <button id="validateButton">
+            Validar código
+        </button>
 
-        <!-- Sección 2: Formulario de Review (inicialmente oculta) -->
-        <section id="review-form-section" class="review-section">
-            <div class="review-card">
-                <h2>¡Tu opinión es valiosa!</h2>
-                <p id="product-info-display" class="product-info">Reseñando: <span id="product-name"></span></p>
+        <p id="message"></p>
 
-                <div class="rating-input">
-                    <label>Calificación:</label>
-                    <div class="stars">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
-                    <small id="rating-error" class="error-message"></small>
-                </div>
-
-                <div class="comment-input">
-                    <label for="reviewComment">Comentario:</label>
-                    <textarea id="reviewComment" rows="5" placeholder="Cuéntanos tu experiencia con DarkTop..."></textarea>
-                    <small id="comment-error" class="error-message"></small>
-                </div>
-
-                <button id="submit-review-button" class="primary-button">Enviar Review</button>
-                <p id="review-submission-error" class="error-message"></p>
-            </div>
-        </section>
-
-        <!-- Sección 3: Mensaje de Estado (Éxito/Error general) -->
-        <section id="status-message-section" class="review-section">
-            <div class="review-card">
-                <p id="status-message" class="status-message"></p>
-            </div>
+        <!-- Aquí aparecerá el formulario más adelante -->
+        <section id="reviewForm" style="display:none;">
         </section>
 
     </main>
 
-    <footer class="footer">
-        <p>© 2026 DarkTop. All rights reserved.</p>
-    </footer>
-
-    <!-- Enlace al JS de esta página -->
     <script type="module" src="scripts/review.js"></script>
-    <!-- Si usas un header/footer general -->
-    <!-- <script src="scripts/header.js"></script> -->
+
 </body>
 </html>
