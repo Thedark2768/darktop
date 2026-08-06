@@ -22,14 +22,6 @@ onAuthStateChanged(auth, (usuario) => {
 
 });
 
-import {
-    collection,
-    getDocs,
-    doc,
-    updateDoc,
-    deleteDoc
-} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
-
 async function cambiarEstado(id, estado) {
 async function cambiarEstado(id, estado) {
 
