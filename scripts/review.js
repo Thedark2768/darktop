@@ -23,6 +23,8 @@ const comentario = document.getElementById("comentario");
 
 const enviarResena = document.getElementById("enviarResena");
 
+let reviewActual = null;
+
 validarButton.addEventListener("click", async () => {
 
     const codigo = codigoInput.value.trim().toUpperCase();
@@ -56,6 +58,8 @@ validarButton.addEventListener("click", async () => {
         }
 
         const datos = reviewSnap.data();
+
+        reviewActual = datos;
 
         if (!datos.habilitada) {
 
