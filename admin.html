@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <body>
+
 
 <header class="admin-header">
     <h1>DarkTop Admin</h1>
@@ -21,16 +21,59 @@
 
 <main class="admin-container">
 
-    <h2>📦 Pedidos</h2>
+    <div class="tabs">
 
-    <section id="listaPedidos" class="pedidos-grid">
-        Cargando pedidos...
+        <button
+            id="tabPedidos"
+            class="tab active">
+
+            📦 Pedidos
+
+        </button>
+
+        <button
+            id="tabReviews"
+            class="tab">
+
+            ⭐ Reseñas
+
+        </button>
+
+    </div>
+
+    <section
+        id="pedidosPanel">
+
+        <h2>Pedidos</h2>
+
+        <section
+            id="listaPedidos"
+            class="pedidos-grid">
+
+            Cargando...
+
+        </section>
+
+    </section>
+
+    <section
+        id="reviewsPanel"
+        hidden>
+
+        <h2>Reseñas pendientes</h2>
+
+        <section
+            id="listaReviews"
+            class="pedidos-grid">
+
+            Sin reseñas.
+
+        </section>
+
     </section>
 
 </main>
 
-
-<script type="module" src="js/admin.js"></script>
 
 </body>
 <script type="module" src="scripts/admin.js"></script>
