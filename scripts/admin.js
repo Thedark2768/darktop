@@ -272,7 +272,6 @@ onclick="eliminarPedido('${docSnap.id}')">
 async function cargarReviews() {
 
     const consulta = collection(db, "reviews");
-const snapshot = await getDocs(consulta);
 
     const snapshot = await getDocs(consulta);
 
