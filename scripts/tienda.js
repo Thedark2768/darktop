@@ -1,299 +1,189 @@
-// scripts/tienda.js
-
-import { db } from "./firebase.js"; // Asegúrate de que la ruta sea correcta
-
+import { db } from "./firebase.js";
 import {
     collection,
     addDoc,
-    serverTimestamp,
-    query, // <<< Necesario para buscar en Firebase
-    where,
-    getDocs,
-    updateDoc, // <<< Necesario para actualizar documentos
-    doc // <<< Necesario para referenciar documentos
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
+// Categories
+const buttons = document.querySelectorAll(".category-button");
+const categories = document.querySelectorAll(".category");
 
-// ========================================
-// CONFIGURACIÓN GLOBAL
-// ========================================
+//number
+const whatsapp_number = "50237386967"
 
-const whatsapp_number = "50237386967";
+// Change category
+buttons.forEach(button => {
 
-
-// ========================================
-// CONTROL DE CATEGORÍAS EN LA TIENDA
-// ========================================
-
-const categoryButtons = document.querySelectorAll(".category-button");
-const productCategories = document.querySelectorAll(".category");
-
-categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
-        categoryButtons.forEach(btn => btn.classList.remove("active"));
-        productCategories.forEach(category => category.classList.remove("visible"));
 
+        // Remove active states
+        buttons.forEach(btn => btn.classList.remove("active"));
+        categories.forEach(category => category.classList.remove("visible"));
+
+        // Activate selected button
         button.classList.add("active");
-        const categoryId = button.dataset.category;
-        document.getElementById(categoryId).classList.add("visible");
+
+        // Show selected category
+        const id = button.dataset.category;
+        document.getElementById(id).classList.add("visible");
+
     });
+
 });
 
-
-// ========================================
-// LÓGICA DEL MODAL DE COMPRA
-// ========================================
-
-const selectedProductDisplay = document.getElementById("selected-product");
-const purchaseModal = document.getElementById("purchase-modal");
+const selectedProduct = document.getElementById("selected-product");
+const modal = document.getElementById("purchase-modal");
 const buyButtons = document.querySelectorAll(".buy-button");
-const closePurchaseModalButton = purchaseModal.querySelector(".close-button");
-
-const playerIdInput = document.getElementById("id");
-const playerNameInput = document.getElementById("nickname");
-const playerIdError = document.getElementById("id-error");
-const continuePurchaseButton = document.getElementById("continue-button");
-const paymentMethodSelect = document.getElementById("payment-method");
-
-
-// ========================================
-// ESTADO DEL PRODUCTO SELECCIONADO
-// ========================================
+const closeButton = document.querySelector(".close-button");
+const idInput = document.getElementById("id");
+const nicknameInput = document.getElementById("nickname");
+const idError = document.getElementById("id-error");
+const continueButton = document.getElementById("continue-button");
 
 let currentProduct = "";
 let currentPrice = "";
-let currentProductId = ""; // ID único del producto, si lo tienes
 
-
-// ========================================
-// DETALLES DEL ÚLTIMO PEDIDO REGISTRADO
-// ========================================
-
-let lastOrderDetails = null;
-
-
-// ========================================
-// BOTONES DE COMPRA (ABRIR MODAL)
-// ========================================
-
-buyButtons.forEach(button => {
+buyButtons.forEach(button =>{
     button.addEventListener("click", () => {
         currentProduct = button.dataset.product;
         currentPrice = button.dataset.price;
-        // Asigna el ID del producto. Si no tienes un data-product-id, usa el nombre.
-        currentProductId = button.dataset.productId || currentProduct;
 
-        selectedProductDisplay.textContent = `${currentProduct} a Q${currentPrice}`;
-        purchaseModal.classList.add("show");
+        selectedProduct.textContent = `${currentProduct} a Q${currentPrice}`;
+        modal.classList.add("show");
     });
 });
 
-
-// ========================================
-// CERRAR MODAL DE COMPRA
-// ========================================
-
-closePurchaseModalButton.addEventListener("click", () => {
-    purchaseModal.classList.remove("show");
+closeButton.addEventListener("click", () =>{
+    modal.classList.remove("show");
 });
 
-// Cerrar tocando fuera del modal
-purchaseModal.addEventListener("click", (event) => {
-    if (event.target === purchaseModal) {
-        purchaseModal.classList.remove("show");
+modal.addEventListener("click", (event) => {
+    if(event.target === modal){
+        modal.classList.remove("show");
     }
 });
 
+function generarCodigo(longitud) {
+    const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let codigo = "";
 
-// ========================================
-// GENERACIÓN DE CÓDIGOS
-// ========================================
+    for (let i = 0; i < longitud; i++) {
+        codigo += caracteres.charAt(
+            Math.floor(Math.random() * caracteres.length)
+        );
+    }
 
-// Genera un código único para el 'purchase code' de la review
-function generateReviewPurchaseCode() {
-    const timestamp = Date.now().toString();
-    const randomChars = Math.random().toString(36).substring(2, 8); // 6 caracteres aleatorios
-    return `DRKREV-${timestamp}-${randomChars.toUpperCase()}`;
+    return codigo;
 }
 
-// Tu función original para generar el código del pedido
-function generateOrderCode(length) {
-    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let code = "";
-    for (let i = 0; i < length; i++) {
-        code += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return code;
-}
+let enviandoPedido = false;
 
+continueButton.addEventListener("click", async () => {
 
-// ========================================
-// CONTROL DE ENVÍO DE PEDIDO (ANTI-SPAM)
-// ========================================
+    if (enviandoPedido) return;
 
-let isSubmittingOrder = false;
+    enviandoPedido = true;
 
+    continueButton.disabled = true;
+    continueButton.textContent = "Registrando pedido...";
 
-// ========================================
-// MANEJO DEL BOTÓN "CONTINUAR COMPRA"
-// ========================================
+    const id = idInput.value.trim();
 
-continuePurchaseButton.addEventListener("click", async () => {
-    // Evitar doble clic
-    if (isSubmittingOrder) return;
+    idError.textContent = "";
 
-    // --- VALIDACIÓN DE DATOS ---
-    const playerId = playerIdInput.value.trim();
-    playerIdError.textContent = "";
-
-    if (playerId === "") {
-        playerIdError.textContent = "Por favor introduce tu ID.";
-        return;
-    }
-    if (!/^\d+$/.test(playerId)) {
-        playerIdError.textContent = "Solo números.";
-        return;
-    }
-    if (playerId.length < 8 || playerId.length > 11) {
-        playerIdError.textContent = "ID no válido.";
+    if (id === "") {
+        idError.textContent = "Por favor introduce tu ID.";
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
         return;
     }
 
-    const paymentMethod = paymentMethodSelect.value;
-    const playerName = playerNameInput.value.trim();
+    if (!/^\d+$/.test(id)) {
+        idError.textContent = "Solo numeros.";
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
+        return;
+    }
 
-    if (playerName === "") {
+    if (id.length < 8 || id.length > 11) {
+        idError.textContent = "ID no apto.";
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
+        return;
+    }
+
+    const payment = document.getElementById("payment-method").value;
+
+    const nickname = nicknameInput.value.trim();
+
+    if (nickname === "") {
         alert("Por favor introduce el nombre de jugador.");
+
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
+
         return;
     }
-
-    // --- BLOQUEAR BOTÓN Y MOSTRAR ESTADO ---
-    isSubmittingOrder = true;
-    continuePurchaseButton.disabled = true;
-    continuePurchaseButton.textContent = "Registrando pedido...";
-
-    // --- GENERAR CÓDIGOS Y DETALLES ---
-    const orderId = "DT-" + generateOrderCode(6); // Tu ID de pedido original
-    const reviewCode = generateReviewPurchaseCode(); // Nuevo código robusto para el purchase code de review
-
-    try {
-        // --- 1. GUARDAR EL CÓDIGO DE REVIEW EN LA COLECCIÓN 'purchaseCodes' ---
-        await addDoc(collection(db, "purchaseCodes"), {
-            code: reviewCode,
-            productId: currentProductId,
-            userId: null, // Si tienes sistema de login, pon el ID del usuario aquí
-            purchaseDetails: { // Detalles relevantes de la compra para referencia
-                playerName: playerName,
-                playerId: playerId,
-                paymentMethod: paymentMethod
-            },
-            createdAt: serverTimestamp(),
-            used: false // Inicialmente, el código no se ha usado para una review
-        });
-        console.log("Purchase code generado y guardado en Firebase:", reviewCode);
-
-        // --- 2. GUARDAR EL PEDIDO EN LA COLECCIÓN 'pedidos' ---
-        await addDoc(collection(db, "pedidos"), {
-            producto: currentProduct,
-            precio: currentPrice,
-            id: playerId, // ID del jugador
-            jugador: playerName,
-            metodoPago: paymentMethod,
-            estado: "Pendiente", // Estado inicial del pedido
-            pedidoId: orderId, // El ID de pedido que generamos
-            // En este punto, no necesitas guardar el reviewCode aquí si usas 'purchaseCodes'
-            // Si tuvieras un campo 'reseñaHabilitada' podrías setearlo aquí.
-            fecha: serverTimestamp()
-        });
-        console.log("Pedido registrado en Firebase con ID:", orderId);
-
-        // --- GUARDAR INFORMACIÓN DEL ÚLTIMO PEDIDO (PARA WHATSAPP Y COPIAR) ---
-        lastOrderDetails = {
-            pedidoId: orderId,
-            codigoResena: reviewCode, // Guardamos el código de review generado
-            producto: currentProduct,
-            precio: currentPrice,
-            id: playerId,
-            jugador: playerName,
-            metodoPago: paymentMethod
-        };
-
-        // --- CERRAR MODAL DE COMPRA ---
-        purchaseModal.classList.remove("show");
-
-        // --- MOSTRAR DATOS EN MODAL DE ÉXITO ---
-        document.getElementById("successOrderId").textContent = orderId;
-        document.getElementById("successReviewCode").textContent = reviewCode;
-        document.getElementById("orderSuccessModal").classList.add("active");
-
-    } catch (error) {
-        console.error("Error al procesar el pedido o guardar el código de review:", error);
-        alert("❌ Hubo un error al procesar tu pedido y generar tu código de reseña. Por favor, inténtalo nuevamente.");
-
-        // Permitir volver a intentar si hubo un error
-        isSubmittingOrder = false;
-        continuePurchaseButton.disabled = false;
-        continuePurchaseButton.textContent = "Continuar";
-    }
-});
-
-
-// ========================================
-// MANEJO DEL BOTÓN DE WHATSAPP
-// ========================================
-
-const whatsappButton = document.getElementById("whatsappButton");
-
-whatsappButton.addEventListener("click", () => {
-    if (!lastOrderDetails) return;
 
     const message = `
 🛒 *Nueva Orden - DarkTop*
 
-📦 Pedido: ${lastOrderDetails.pedidoId}
+🎮 Producto: ${currentProduct}
+💰 Precio: ${currentPrice}
 
-🔗 Código de Reseña: ${lastOrderDetails.codigoResena} (Úsalo en darktop.store/validar-review)
+🆔 ID: ${id}
 
-🎮 Producto: ${lastOrderDetails.producto}
-💰 Precio: Q${lastOrderDetails.precio}
-🆔 ID: ${lastOrderDetails.id}
-👤 Nombre de jugador: ${lastOrderDetails.jugador}
-💳 Método de Pago: ${lastOrderDetails.metodoPago}
+👤 Nombre de jugador: ${nickname}
+
+💳 Metodo de Pago: ${payment}
 `;
 
-    window.open(`https://wa.me/${whatsapp_number}?text=${encodeURIComponent(message)}`, "_blank");
-});
-
-
-// ========================================
-// MANEJO DEL BOTÓN PARA COPIAR CÓDIGO DE RESEÑA
-// ========================================
-
-const copyReviewCodeButton = document.getElementById("copyReviewCode");
-
-copyReviewCodeButton.addEventListener("click", async () => {
-    if (!lastOrderDetails) return;
+    const pedidoId = "DT-" + generarCodigo(6);
+    const codigoResena = "CR-" + generarCodigo(4) + "-" + generarCodigo(4);
 
     try {
-        await navigator.clipboard.writeText(lastOrderDetails.codigoResena);
-        copyReviewCodeButton.textContent = "✅ Copiado";
-        setTimeout(() => {
-            copyReviewCodeButton.textContent = "📋 Copiar";
-        }, 2000);
+
+        await addDoc(collection(db, "pedidos"), {
+
+            producto: currentProduct,
+            precio: currentPrice,
+            id: id,
+            jugador: nickname,
+            metodoPago: payment,
+
+            estado: "Pendiente",
+
+            pedidoId: pedidoId,
+            codigoResena: codigoResena,
+            resenaUsada: false,
+
+            fecha: serverTimestamp()
+        });
+
+        alert(
+            `✅ Pedido registrado\n\n` +
+            `📦 Pedido: ${pedidoId}\n` +
+            `⭐ Código de reseña: ${codigoResena}`
+        );
+
     } catch (error) {
-        console.error("No se pudo copiar:", error);
-        alert('No se pudo copiar el código.');
+
+        console.error("Error al crear pedido:", error);
+
+        alert("❌ No se pudo registrar el pedido. Inténtalo nuevamente.");
+
+        // Solo permitimos volver a intentarlo si realmente falló
+        enviandoPedido = false;
+        continueButton.disabled = false;
+        continueButton.textContent = "Continuar";
     }
-});
 
-
-// ========================================
-// MANEJO DEL CIERRE DEL MODAL DE ÉXITO
-// ========================================
-
-// ... código anterior ...
-
-// ========================================
+});==============
 // MANEJO DEL CIERRE DEL MODAL DE ÉXITO
 // ========================================
 
