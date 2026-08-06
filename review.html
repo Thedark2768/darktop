@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Enviar reseña | DarkTop</title>
 
-    <link rel="stylesheet" href="css/review.css">
 </head>
+
 <body>
 
-    <main class="review-container">
+<h1>Enviar reseña</h1>
 
-        <h1>⭐ Comparte tu experiencia</h1>
+<input
+    id="codigo"
+    type="text"
+    placeholder="Código de reseña">
 
-        <p>
-            Introduce el código de reseña que recibiste al realizar tu pedido.
-        </p>
+<button id="validar">
 
-        <input
-            type="text"
-            id="reviewCode"
-            placeholder="CR-XXXX-XXXX"
-            autocomplete="off">
+    Validar código
 
-        <button id="validateButton">
-            Validar código
-        </button>
+</button>
 
-        <p id="message"></p>
+<p id="mensaje"></p>
 
-        <!-- Aquí aparecerá el formulario más adelante -->
-        <section id="reviewForm" style="display:none;">
-        </section>
+<div id="formulario" hidden>
 
-    </main>
+    <h2>Reseña</h2>
 
-    <script type="module" src="scripts/review.js"></script>
+    <p id="producto"></p>
+
+    <p id="jugador"></p>
+
+</div>
+
+<script type="module" src="scripts/review.js"></script>
 
 </body>
+
 </html>
