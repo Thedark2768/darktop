@@ -31,10 +31,26 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 async function cambiarEstado(id, estado) {
+async function cambiarEstado(id, estado) {
 
-    const referencia = doc(db, "pedidos", id);
+    // Referencia al pedido
+    const pedidoRef = doc(db, "pedidos", id);
 
-    await updateDoc(referencia, {
+    // Obtener los datos del pedido
+    const pedidoSnap = await getDoc(pedidoRef);
+
+    if (!pedidoSnap.exists()) {
+
+        alert("El pedido no existe.");
+
+        return;
+
+    }
+
+    const pedido = pedidoSnap.data();
+
+    // Actualizar el pedido
+    await updateDoc(pedidoRef, {
 
         estado: estado,
 
@@ -42,7 +58,23 @@ async function cambiarEstado(id, estado) {
 
     });
 
+    // Actualizar reviewCodes
+    const reviewCodeRef = doc(
+        db,
+        "reviewCodes",
+        pedido.codigoResena
+    );
+
+    await updateDoc(reviewCodeRef, {
+
+        estado: estado,
+
+        habilitada: estado === "Entregado"
+
+    });
+
     cargarPedidos();
+
 }
 
 const lista = document.getElementById("listaPedidos");
