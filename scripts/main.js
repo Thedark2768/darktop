@@ -11,104 +11,87 @@ import {
 
 const guideButton = document.getElementById("guide-button");
 const guideModal = document.getElementById("guide-modal");
-
 const closeGuide = document.querySelector(".close-guide");
 const closeGuideButton = document.querySelector(".close-guide-button");
+const reviewsContainer = document.getElementById("reviewsContainer");
 
-guideButton.addEventListener("click", () => {
+const abrirModal = () => {
     guideModal.classList.add("show");
-});
+};
 
-closeGuide.addEventListener("click", () => {
+const cerrarModal = () => {
     guideModal.classList.remove("show");
-});
+};
 
-closeGuideButton.addEventListener("click", () => {
-    guideModal.classList.remove("show");
-})
+guideButton?.addEventListener("click", abrirModal);
 
-guideModal.addEventListener("click", (event) => {
-    if (event.target === guideModal){
-        guideModal.classList.remove("show");
+closeGuide?.addEventListener("click", cerrarModal);
+
+closeGuideButton?.addEventListener("click", cerrarModal);
+
+guideModal?.addEventListener("click", ({ target }) => {
+    if (target === guideModal) {
+        cerrarModal();
     }
-})
+});
 
 async function cargarReviews() {
+    if (!reviewsContainer) return;
 
-    const reviewsContainer =
-        document.getElementById("reviewsContainer");
+    try {
+        const consulta = query(
+            collection(db, "reviews"),
+            where("estado", "==", "Aprobada"),
+            orderBy("fecha", "desc"),
+            limit(6)
+        );
 
-    const consulta = query(
+        const snapshot = await getDocs(consulta);
 
-        collection(db, "reviews"),
-
-        where("estado", "==", "Aprobada"),
-
-        orderBy("fecha", "desc"),
-
-        limit(6)
-
-    );
-
-    const snapshot = await getDocs(consulta);
-
-    reviewsContainer.innerHTML = "";
-
-    if (snapshot.empty) {
-
-        reviewsContainer.innerHTML =
-            "<p>Aún no hay reseñas.</p>";
-
-        return;
-
-    }
-
-    snapshot.forEach((doc) => {
-
-        const review = doc.data();
-
-        let estrellas = "";
-
-        for (let i = 0; i < review.estrellas; i++) {
-
-            estrellas += "⭐";
-
+        if (snapshot.empty) {
+            reviewsContainer.innerHTML = "<p>Aún no hay reseñas.</p>";
+            return;
         }
 
-        reviewsContainer.innerHTML += `
+        let html = "";
 
-<article class="review-card">
+        snapshot.forEach((doc) => {
+            const review = doc.data();
 
-    <div class="review-stars">
-        ${estrellas}
-    </div>
+            html += `
+                <article class="review-card">
+                    <div class="review-stars">
+                        ${"⭐".repeat(review.estrellas)}
+                    </div>
 
-    <p class="review-comment">
-        "${review.comentario}"
-    </p>
+                    <p class="review-comment">
+                        "${review.comentario}"
+                    </p>
 
-    <div class="review-footer">
+                    <div class="review-footer">
+                        <div>
+                            <strong class="review-player">
+                                ${review.jugador}
+                            </strong>
 
-        <div>
+                            <span class="review-product">
+                                ${review.producto}
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        });
 
-            <strong class="review-player">
-                ${review.jugador}
-            </strong>
+        reviewsContainer.innerHTML = html;
 
-            <span class="review-product">
-                ${review.producto}
-            </span>
+    } catch (error) {
+        console.error("Error al cargar reseñas:", error);
 
-        </div>
-
-    </div>
-
-</article>
-
-`;
-
-    });
-
+        reviewsContainer.innerHTML = `
+            <p>No fue posible cargar las reseñas. Inténtalo más tarde.</p>
+        `;
+    }
 }
 
-cargarReviews();
+document.addEventListener("DOMContentLoaded", cargarReviews);
