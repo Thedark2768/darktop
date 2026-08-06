@@ -337,5 +337,57 @@ onclick="rechazarReview('${docSnap.id}')">
 
 }
 
+async function aprobarReview(id) {
+
+    try {
+
+        await updateDoc(
+            doc(db, "reviews", id),
+            {
+                estado: "Aprobada"
+            }
+        );
+
+        await cargarReviews();
+
+        alert("Reseña aprobada.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo aprobar la reseña.");
+
+    }
+
+}
+
+async function rechazarReview(id) {
+
+    try {
+
+        await updateDoc(
+            doc(db, "reviews", id),
+            {
+                estado: "Oculta"
+            }
+        );
+
+        await cargarReviews();
+
+        alert("Reseña ocultada.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo ocultar la reseña.");
+
+    }
+
+}
+
 window.cambiarEstado = cambiarEstado;
 window.eliminarPedido = eliminarPedido;
+window.aprobarReview = aprobarReview;
+window.rechazarReview = rechazarReview; 
