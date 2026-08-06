@@ -11,8 +11,10 @@ import {
     getDoc,
     doc,
     updateDoc,
-    deleteDoc
-} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+    deleteDoc,
+    query,
+    where
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js"; 
 
 onAuthStateChanged(auth, (usuario) => {
 
@@ -23,7 +25,8 @@ onAuthStateChanged(auth, (usuario) => {
 
     }
 
-    cargarPedidos();
+    await cargarPedidos();
+    await cargarReviews();
 
 });
 
@@ -67,8 +70,8 @@ async function cambiarEstado(id, estado) {
 
         });
 
-        cargarPedidos();
-
+        await cargarPedidos();
+        await cargarReviews();
     } catch (error) {
 
         console.error(error);
@@ -256,6 +259,74 @@ onclick="cambiarEstado('${docSnap.id}', 'Entregado')">
 class="delete"
 onclick="eliminarPedido('${docSnap.id}')">
 🗑️ Eliminar
+</button>
+
+</article>
+
+`;
+
+    });
+
+}
+
+async function cargarReviews() {
+
+    const consulta = query(
+        collection(db, "reviews"),
+        where("estado", "==", "Pendiente")
+    );
+
+    const snapshot = await getDocs(consulta);
+
+    listaReviews.innerHTML = "";
+
+    if (snapshot.empty) {
+
+        listaReviews.innerHTML =
+            "<p>No hay reseñas pendientes.</p>";
+
+        return;
+
+    }
+
+    snapshot.forEach((docSnap) => {
+
+        const review = docSnap.data();
+
+        let estrellas = "";
+
+        for (let i = 0; i < review.estrellas; i++) {
+
+            estrellas += "⭐";
+
+        }
+
+        listaReviews.innerHTML += `
+
+<article>
+
+<h3>${estrellas}</h3>
+
+<p><strong>${review.producto}</strong></p>
+
+<p>Jugador: ${review.jugador}</p>
+
+<p>${review.comentario}</p>
+
+<button
+class="done"
+onclick="aprobarReview('${docSnap.id}')">
+
+✅ Aprobar
+
+</button>
+
+<button
+class="delete"
+onclick="rechazarReview('${docSnap.id}')">
+
+❌ Ocultar
+
 </button>
 
 </article>
