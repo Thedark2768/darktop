@@ -23,7 +23,6 @@ onAuthStateChanged(auth, (usuario) => {
 });
 
 async function cambiarEstado(id, estado) {
-async function cambiarEstado(id, estado) {
 
     // Referencia al pedido
     const pedidoRef = doc(db, "pedidos", id);
