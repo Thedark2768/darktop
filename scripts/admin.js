@@ -81,6 +81,46 @@ async function cambiarEstado(id, estado) {
 
 const lista = document.getElementById("listaPedidos");
 
+const listaReviews =
+document.getElementById("listaReviews");
+
+const tabPedidos =
+document.getElementById("tabPedidos");
+
+const tabReviews =
+document.getElementById("tabReviews");
+
+const pedidosPanel =
+document.getElementById("pedidosPanel");
+
+const reviewsPanel =
+document.getElementById("reviewsPanel");
+
+tabPedidos.addEventListener("click", () => {
+
+    pedidosPanel.hidden = false;
+
+    reviewsPanel.hidden = true;
+
+    tabPedidos.classList.add("active");
+
+    tabReviews.classList.remove("active");
+
+});
+
+tabReviews.addEventListener("click", () => {
+
+    pedidosPanel.hidden = true;
+
+    reviewsPanel.hidden = false;
+
+    tabReviews.classList.add("active");
+
+    tabPedidos.classList.remove("active");
+
+});
+
+
 document.getElementById("logoutBtn").addEventListener("click", async () => {
 
     await signOut(auth);
