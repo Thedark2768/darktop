@@ -291,6 +291,12 @@ copyReviewCodeButton.addEventListener("click", async () => {
 // MANEJO DEL CIERRE DEL MODAL DE ÉXITO
 // ========================================
 
+// ... código anterior ...
+
+// ========================================
+// MANEJO DEL CIERRE DEL MODAL DE ÉXITO
+// ========================================
+
 const closeSuccessModalButton = document.getElementById("closeSuccessModal");
 
 closeSuccessModalButton.addEventListener("click", () => {
@@ -303,10 +309,15 @@ closeSuccessModalButton.addEventListener("click", () => {
     isSubmittingOrder = false;
     continuePurchaseButton.disabled = false;
     continuePurchaseButton.textContent = "Continuar";
-});
+}); // <<< ESTA ES LA LLAVE Y PUNTO Y COMA CORRECTOS PARA CERRAR ESTE LISTENER
 
 // --- Recordatorio: La validación de código y envío de reviews se maneja en review.js ---
-tton");
+
+// ========================================
+// MANEJO DEL BOTÓN DE WHATSAPP
+// ========================================
+
+const whatsappButton = document.getElementById("whatsappButton");
 
 whatsappButton.addEventListener("click", () => {
     if (!lastOrderDetails) return;
@@ -330,7 +341,10 @@ whatsappButton.addEventListener("click", () => {
         `https://wa.me/${whatsapp_number}?text=${encodeURIComponent(message)}`,
         "_blank"
     );
-});
+}); // <<< LLAVE Y PUNTO Y COMA CORRECTOS PARA CERRAR EL LISTENER DE WHATSAPP
+
+// ... (Aquí continuaría el resto de tu script, como el listener para copyReviewCodeButton) ...
+
 
 
 // ========================================
