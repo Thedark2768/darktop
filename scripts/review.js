@@ -1,47 +1,89 @@
 import { db } from "./firebase.js";
 
 import {
-    collection,
-    query,
-    where,
-    getDocs
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
-const validateButton = document.getElementById("validateButton");
+const codigoInput = document.getElementById("codigo");
 
-const reviewCode = document.getElementById("reviewCode");
+const validarButton = document.getElementById("validar");
 
-const message = document.getElementById("message");
+const mensaje = document.getElementById("mensaje");
 
-validateButton.addEventListener("click", async () => {
+const formulario = document.getElementById("formulario");
 
-    const codigo = reviewCode.value.trim();
+const producto = document.getElementById("producto");
 
-    message.textContent = "";
+const jugador = document.getElementById("jugador");
+
+validarButton.addEventListener("click", async () => {
+
+    const codigo = codigoInput.value.trim().toUpperCase();
+
+    mensaje.textContent = "";
+
+    formulario.hidden = true;
 
     if (codigo === "") {
 
-        message.textContent = "Introduce un código.";
+        mensaje.textContent =
+            "Introduce tu código de reseña.";
 
         return;
 
     }
 
-    const consulta = query(
-        collection(db, "pedidos"),
-        where("codigoResena", "==", codigo)
-    );
+    try {
 
-    const resultado = await getDocs(consulta);
+        const reviewRef = doc(db, "reviewCodes", codigo);
 
-    if (resultado.empty) {
+        const reviewSnap = await getDoc(reviewRef);
 
-        message.textContent = "❌ Código inválido.";
+        if (!reviewSnap.exists()) {
 
-        return;
+            mensaje.textContent =
+                "Código inválido.";
+
+            return;
+
+        }
+
+        const datos = reviewSnap.data();
+
+        if (!datos.habilitada) {
+
+            mensaje.textContent =
+                "Tu pedido todavía no ha sido entregado.";
+
+            return;
+
+        }
+
+        if (datos.usada) {
+
+            mensaje.textContent =
+                "Este código ya fue utilizado.";
+
+            return;
+
+        }
+
+        producto.textContent =
+            "Producto: " + datos.producto;
+
+        jugador.textContent =
+            "Jugador: " + datos.jugador;
+
+        formulario.hidden = false;
+
+    } catch (error) {
+
+        console.error(error);
+
+        mensaje.textContent =
+            "Ocurrió un error.";
 
     }
-
-    message.textContent = "✅ Código encontrado.";
 
 });
